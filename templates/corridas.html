@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corridas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Corridas</h1>
+        <div class="text-center mb-3">
+            <a class="btn btn-primary" href="{{ url_for('dashboard') }}">Voltar para Dashboard</a>
+        </div>
+
+        <h2>Cadastrar Corrida</h2>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="data" class="form-label">Data</label>
+                    <input type="date" class="form-control" name="data" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tempo" class="form-label">Tempo</label>
+                    <input type="time" class="form-control" name="tempo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="evento_id" class="form-label">Evento</label>
+                    <select class="form-select" name="evento_id" required>
+                        <option value="">Selecione um evento</option>
+                        {% for evento in eventos %}
+                            <option value="{{ evento[0] }}">{{ evento[1] }} ({{ evento[2] }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="distancia" class="form-label">Distância</label>
+                    <input type="text" class="form-control" name="distancia" required> <!-- Novo campo -->
+                </div>
+                <button type="submit" class="btn btn-success">Cadastrar Corrida</button>
+            </form>
+
+        <h2 class="mt-5">Lista de Corridas</h2>
+            <ul class="list-group">
+                {% for corrida in corridas %}
+                    <li class="list-group-item">
+                        Data: {{ corrida[1] }}, Tempo: {{ corrida[2] }}, Evento: {{ corrida[5] }}, Distância: {{ corrida[3] }}
+                        <form method="POST" action="{{ url_for('remover_corrida', cor_id=corrida[0]) }}" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="list-group-item">Ainda não há corridas cadastradas.</li>
+                {% endfor %}
+            </ul>
+    </div>
+</body>
+</html>

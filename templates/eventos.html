@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Eventos</h1>
+        <div class="text-center mb-3">
+            <a class="btn btn-primary" href="{{ url_for('dashboard') }}">Voltar para Dashboard</a>
+        </div>
+
+        <h2>Cadastrar Evento</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome do Evento</label>
+                <input type="text" class="form-control" name="nome" required>
+            </div>
+            <div class="mb-3">
+                <label for="data" class="form-label">Data</label>
+                <input type="date" class="form-control" name="data" required>
+            </div>
+            <div class="mb-3">
+                <label for="premio" class="form-label">Prêmio</label>
+                <input type="text" class="form-control" name="premio" required>
+            </div>
+            <button type="submit" class="btn btn-success">Cadastrar Evento</button>
+        </form>
+
+        <h2 class="mt-5">Lista de Eventos</h2>
+        <ul class="list-group">
+            {% for evento in eventos %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Nome: {{ evento[1] }}, Data: {{ evento[2] }}, Prêmio: {{ evento[3] }}
+                    <form method="POST" action="{{ url_for('remover_evento', eve_id=evento[0]) }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="list-group-item">Ainda não há eventos cadastrados.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
