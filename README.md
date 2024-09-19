@@ -28,4 +28,4 @@ This project consists of a race registration system where users can log their ra
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/yourrepository.git
+   https://github.com/Renezin13/Sistema-Web-Corridas.git
